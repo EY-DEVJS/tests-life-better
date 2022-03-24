@@ -1,1 +1,119 @@
-<p>shipping-form works!</p>
+<p-card>
+  <div class="fluid grid"
+       [formGroup]="shippingForm">
+    <div class="col-12 md:col-6">
+      <h3>Dane odbiorcy przesyłki</h3>
+
+      <div class="field mt-5">
+      <span class="p-float-label">
+        <input type="text"
+               class="w-full"
+               formControlName="firstName"
+               id="first-name"
+               pInputText>
+        <label for="first-name">Imię</label>
+      </span>
+      </div>
+
+      <div class="field mt-5">
+      <span class="p-float-label">
+        <input type="text"
+               class="w-full"
+               formControlName="lastName"
+               id="last-name"
+               pInputText>
+        <label for="last-name">Nazwisko</label>
+      </span>
+      </div>
+
+      <div class="field  mt-5">
+      <span class="p-float-label">
+        <input type="email"
+               class="w-full"
+               formControlName="email"
+               id="email"
+               pInputText>
+        <label for="email">E-mail</label>
+      </span>
+      </div>
+
+      <div class="field mt-5">
+      <span class="p-float-label">
+          <input type="text"
+                 class="w-full"
+                 formControlName="postalCode"
+                 id="postal-code"
+                 pInputText>
+          <label for="postal-code">Kod pocztowy</label>
+        </span>
+      </div>
+
+      <div class="field mt-5">
+      <span class="p-float-label">
+          <input type="text"
+                 class="w-full"
+                 formControlName="city"
+                 id="city"
+                 pInputText>
+          <label for="city">Miasto</label>
+        </span>
+      </div>
+
+      <div class="field mt-5">
+      <span class="p-float-label">
+          <input type="text"
+                 class="w-full"
+                 formControlName="streetAddress"
+                 id="street-address"
+                 pInputText>
+          <label for="street-address">Ulica i numer domu / mieszkania</label>
+        </span>
+      </div>
+
+    </div>
+    <div class="col-12 md:col-6">
+      <h3>Data doręczenia przesyłki</h3>
+
+      <div class="field mt-5">
+      <span class="p-float-label">
+        <p-calendar formControlName="shippingDate"
+                    [showIcon]="true"
+                    inputId="shipping-date"></p-calendar>
+          <label for="city">Data</label>
+        </span>
+      </div>
+
+      <h3>Dostawa na adres</h3>
+
+      <div class="field-radiobutton"
+           *ngFor="let provider of shippingProviders">
+        <p-radioButton formControlName="shippingProvider"
+                       [value]="provider.value"
+                       [label]="provider.key"></p-radioButton>
+      </div>
+
+      <h3>Metoda płatności</h3>
+
+      <div class="field-radiobutton"
+           *ngFor="let method of paymentMethods">
+        <p-radioButton formControlName="paymentMethod"
+                       [value]="method.value"
+                       [label]="method.key"></p-radioButton>
+      </div>
+
+    </div>
+    <div class="col-12">
+      <div class="flex flex-row align-items-center">
+
+
+        <p-inputSwitch formControlName="consent"
+                       inputId="consent"></p-inputSwitch>
+
+        <label for="consent"
+               class="pl-4">{{consentMessage}}</label>
+      </div>
+    </div>
+  </div>
+</p-card>
+
+

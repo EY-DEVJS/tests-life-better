@@ -10,6 +10,16 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
 import { StepsModule } from 'primeng/steps';
 import { MenuModule } from 'primeng/menu';
+import { CardModule } from 'primeng/card';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClientModule } from '@angular/common/http';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -22,9 +32,20 @@ import { MenuModule } from 'primeng/menu';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     StepsModule,
     MenuModule,
+    CardModule,
+    ReactiveFormsModule,
+    FormsModule,
+    InputTextModule,
+    CalendarModule,
+    InputNumberModule,
+    RadioButtonModule,
+    ToggleButtonModule,
+    InputSwitchModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
