@@ -24,7 +24,6 @@ const Input: React.FC<IProps> = ({
   label,
   validationMessage,
   invalid,
-  className,
 }) => {
   return (
     <div className="field">
@@ -44,10 +43,4 @@ const Input: React.FC<IProps> = ({
   );
 };
 
-const StyledInput = styled(Input)`
-  .label {
-    font-size: 12px;
-    color: gray;
-  }
-`;
 export default Input;
