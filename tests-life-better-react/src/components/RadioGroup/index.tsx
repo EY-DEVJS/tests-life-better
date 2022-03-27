@@ -12,7 +12,7 @@ const RadioGroup: React.FC<IProps> = ({ onClick, data, chosenValue }) => {
   return (
     <>
       {data.map(({ value, additionalInfo }) => (
-        <div className="field-radiobutton">
+        <div className="field-radiobutton" key={value}>
           <RadioButton
             value={value}
             inputId={value}
