@@ -1,95 +1,51 @@
 import React from "react";
 import "primeflex/primeflex.css";
-import Input from "../Input";
-import RadioGroup from "../RadioGroup";
 import { paymentData, shippingData } from "../../data/formData";
+import { InputWithForm } from "../Input/InputWithForm";
+import { ToggleWithForm } from "../Toggle/ToggleWithForm";
+import { RadioGroupWithForm } from "../RadioGroup/RadioGroupWithForm";
 
 interface IProps {}
 
 const ShoppingForm: React.FC<IProps> = ({}) => {
-  const onChange = (data: any) => {
-    console.log(data);
-  };
   return (
-    <div className="flex">
-      <div className="mx-5">
-        <div className="card">
-          <h5>Dane odbiorcy przesyłki</h5>
-          <Input
-            label="Imię"
-            onChange={onChange}
-            id="first-name"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
-          <Input
-            label="Nazwisko"
-            onChange={onChange}
-            id="last-name"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
-          <Input
-            label="E-mail"
-            onChange={onChange}
-            id="email"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
-          <Input
-            label="Kod pocztowy"
-            onChange={onChange}
-            id="postal-code"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
-          <Input
-            label="Miasto"
-            onChange={onChange}
-            id="city"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
-          <Input
-            label="Ulica i numer domu/mieszkania"
-            onChange={onChange}
-            id="street-adress"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
+    <div>
+      <div className="flex">
+        <div className="mx-5">
+          <div className="card">
+            <h5>Dane odbiorcy przesyłki</h5>
+            <InputWithForm label="Imię" id="first-name" />
+            <InputWithForm label="Nazwisko" id="last-name" />
+            <InputWithForm label="E-mail" id="email" />
+            <InputWithForm label="Kod pocztowy" id="postal-code" />
+            <InputWithForm label="Miasto" id="city" />
+            <InputWithForm
+              label="Ulica i numer domu/mieszkania"
+              id="street-adress"
+            />
+          </div>
+        </div>
+        <div>
+          <div className="card">
+            <h5>Dane doręczenia przesyłki</h5>
+            <InputWithForm label="Data" id="shipping-date" />
+          </div>
+          <div className="card">
+            <h5>Dostawa na adres</h5>
+            <RadioGroupWithForm data={shippingData} id="shipping-provider" />
+          </div>
+          <div className="card">
+            <h5>Metoda płatności</h5>
+            <RadioGroupWithForm data={paymentData} id="payment-method" />
+          </div>
         </div>
       </div>
-      <div>
-        <div className="card">
-          <h5>Dane doręczenia przesyłki</h5>
-          <Input
-            label="Data"
-            onChange={onChange}
-            id="shipping-date"
-            value={"test"}
-            validationMessage={"valiadtion"}
-            invalid={false}
-          />
-        </div>
-        <div className="card">
-          <h5>Dostawa na adres</h5>
-          <RadioGroup
-            data={shippingData}
-            chosenValue={""}
-            onChange={onChange}
-          />
-        </div>
-        <div className="card">
-          <h5>Metoda płatności</h5>
-          <RadioGroup data={paymentData} chosenValue={""} onChange={onChange} />
-        </div>
-      </div>
+      <ToggleWithForm
+        id="consent"
+        text={
+          "Wyrażam zgodę na przesyłanie aktualnych promocji na wskazany adres mailowy"
+        }
+      />
     </div>
   );
 };

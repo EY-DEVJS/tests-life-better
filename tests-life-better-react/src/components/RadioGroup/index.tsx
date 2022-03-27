@@ -1,14 +1,14 @@
 import React from "react";
-import { RadioButton } from "primereact/radiobutton";
+import { RadioButton, RadioButtonChangeParams } from "primereact/radiobutton";
 import { IRadioData } from "../../data/formData";
 
 interface IProps {
-  onChange: (value: string) => void;
+  onClick: (e: RadioButtonChangeParams) => void;
   data: Array<IRadioData>;
   chosenValue: String;
 }
 
-const RadioGroup: React.FC<IProps> = ({ onChange, data, chosenValue }) => {
+const RadioGroup: React.FC<IProps> = ({ onClick, data, chosenValue }) => {
   return (
     <>
       {data.map(({ value, additionalInfo }) => (
@@ -17,7 +17,7 @@ const RadioGroup: React.FC<IProps> = ({ onChange, data, chosenValue }) => {
             value={value}
             inputId={value}
             name={value}
-            onChange={(e) => onChange(e.value)}
+            onChange={onClick}
             checked={chosenValue === value}
           />
           <label htmlFor={value} className="mx-5">

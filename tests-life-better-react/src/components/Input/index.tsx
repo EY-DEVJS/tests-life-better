@@ -5,16 +5,16 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import "../../index.css";
 import { InputText } from "primereact/inputtext";
-import styled from "styled-components";
 
 interface IProps {
   label: string;
   onChange: (value: string) => void;
   id: string;
   value: string;
-  validationMessage: string;
+  validationMessage: string | undefined;
   invalid: boolean;
   className?: string;
+  onBlur: () => void;
 }
 
 const Input: React.FC<IProps> = ({
@@ -38,7 +38,7 @@ const Input: React.FC<IProps> = ({
         aria-errormessage={id}
         aria-invalid={invalid}
       />
-      {invalid && <div id={id}>{validationMessage}</div>}
+      {validationMessage && <div id={id}>{validationMessage}</div>}
     </div>
   );
 };
