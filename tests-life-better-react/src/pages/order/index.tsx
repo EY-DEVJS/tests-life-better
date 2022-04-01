@@ -1,19 +1,18 @@
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import ShoppingForm from "../../components/ShoppingForm";
-
+import Checkout from "./Checkout";
+import ShoppingForm from "./ShoppingForm";
+import { IShoppingForm } from "./ShoppingForm/ShoppingForm.types";
+import { defaultValues } from "./ShoppingForm/ShoppingFormData";
 interface IProps {}
 
 const OrderPage: React.FC<IProps> = ({}) => {
-  const methods = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
+  const methods = useForm<IShoppingForm>({ defaultValues });
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <ShoppingForm />
-      </form>
+      <ShoppingForm />
+      <Checkout />
     </FormProvider>
   );
 };

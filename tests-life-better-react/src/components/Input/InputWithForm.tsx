@@ -1,22 +1,33 @@
-import { useFormContext, useController } from "react-hook-form";
+import {
+  useFormContext,
+  useController,
+  FieldValues,
+  Path,
+} from "react-hook-form";
+import { ValidationRules } from "../../types/validation";
 import Input from "./index";
 import React from "react";
 
-interface IProps {
-  id: string;
+interface IProps<TFieldValues extends FieldValues> {
+  id: Path<TFieldValues>;
   label: string;
+  rules: ValidationRules<TFieldValues> | undefined;
 }
 
-export const InputWithForm: React.FC<IProps> = ({ id, label }) => {
-  const { control } = useFormContext();
+export const InputWithForm = <TFieldValues extends FieldValues>({
+  id,
+  label,
+  rules,
+}: IProps<TFieldValues>) => {
+  const { control } = useFormContext<TFieldValues>();
+
   const {
     field: { onChange, onBlur, value },
     fieldState: { invalid, error },
-  } = useController({
+  } = useController<TFieldValues>({
     name: id,
     control,
-    rules: { required: true },
-    defaultValue: "",
+    rules,
   });
 
   return (

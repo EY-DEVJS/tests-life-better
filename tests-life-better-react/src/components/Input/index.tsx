@@ -5,6 +5,7 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import "../../index.css";
 import { InputText } from "primereact/inputtext";
+import classNames from "classnames";
 
 interface IProps {
   label: string;
@@ -31,14 +32,18 @@ const Input: React.FC<IProps> = ({
         {label}
       </label>
       <InputText
-        className="block"
+        className={classNames("block", invalid && "p-invalid")}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         id={id}
         aria-errormessage={id}
         aria-invalid={invalid}
       />
-      {validationMessage && <div id={id}>{validationMessage}</div>}
+      {validationMessage && (
+        <small className="p-error" id={id}>
+          {validationMessage}
+        </small>
+      )}
     </div>
   );
 };

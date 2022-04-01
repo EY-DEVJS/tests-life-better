@@ -1,21 +1,32 @@
-import { useFormContext, useController } from "react-hook-form";
+import {
+  useFormContext,
+  useController,
+  FieldValues,
+  Path,
+} from "react-hook-form";
 import React from "react";
 import Toggle from "./index";
 import { InputSwitchChangeParams } from "primereact/inputswitch";
+import { ValidationRules } from "../../types/validation";
 
-interface IProps {
-  id: string;
+interface IProps<TFieldValues extends FieldValues> {
+  id: Path<TFieldValues>;
   text: string;
+  rules: ValidationRules<TFieldValues> | undefined;
 }
 
-export const ToggleWithForm: React.FC<IProps> = ({ id, text }) => {
-  const { control } = useFormContext();
+export const ToggleWithForm = <TFieldValues extends FieldValues>({
+  id,
+  text,
+  rules,
+}: IProps<TFieldValues>) => {
+  const { control } = useFormContext<TFieldValues>();
   const {
     field: { onChange, value },
   } = useController({
     name: id,
     control,
-    defaultValue: false,
+    rules,
   });
 
   const onToggle = (e: InputSwitchChangeParams) => {
