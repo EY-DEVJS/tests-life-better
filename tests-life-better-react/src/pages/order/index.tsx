@@ -11,8 +11,10 @@ const OrderPage: React.FC<IProps> = ({}) => {
 
   return (
     <FormProvider {...methods}>
-      <ShoppingForm />
-      <Checkout />
+      <div className="flex">
+        <ShoppingForm />
+        <Checkout />
+      </div>
     </FormProvider>
   );
 };

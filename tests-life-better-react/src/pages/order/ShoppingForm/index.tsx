@@ -5,12 +5,20 @@ import { InputWithForm } from "../../../components/Input/InputWithForm";
 import { ToggleWithForm } from "../../../components/Toggle/ToggleWithForm";
 import { RadioGroupWithForm } from "../../../components/RadioGroup/RadioGroupWithForm";
 import { validation } from "./ShoppingForm.validation";
+import { Steps } from "primereact/steps";
 
 interface IProps {}
 
+const items = [
+  { label: "Twoj koszyk" },
+  { label: "Dostawa i sposob platnosci" },
+  { label: "Platnosc" },
+];
+
 const ShoppingForm: React.FC<IProps> = ({}) => {
   return (
-    <div>
+    <div className="card border-solid mx-3 pb-5 pt-2">
+      <Steps model={items} />
       <div className="flex">
         <div className="mx-5">
           <div className="card">
