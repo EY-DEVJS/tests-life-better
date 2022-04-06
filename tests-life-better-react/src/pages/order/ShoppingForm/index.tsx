@@ -18,7 +18,7 @@ const items = [
 const ShoppingForm: React.FC<IProps> = ({}) => {
   return (
     <div className="card border-solid mx-3 pb-5 pt-2">
-      <Steps model={items} />
+      <Steps model={items} activeIndex={1} />
       <div className="flex">
         <div className="mx-5">
           <div className="card">

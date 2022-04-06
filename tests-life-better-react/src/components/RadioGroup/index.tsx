@@ -32,10 +32,12 @@ const RadioGroup = <RadioValueType,>({
             checked={chosenValue === value}
             className={classNames("block", invalid && "p-invalid")}
           />
-          <label htmlFor={id} className="mx-5">
-            {displayValue}
-          </label>
-          {additionalInfo && <span> {`${additionalInfo} PLN`}</span>}
+          <div className="flex justify-content-between">
+            <label htmlFor={id} className="mx-5">
+              {displayValue}
+            </label>
+            {additionalInfo && <span> {`${additionalInfo} PLN`}</span>}
+          </div>
         </div>
       ))}
       {validationMessage && (

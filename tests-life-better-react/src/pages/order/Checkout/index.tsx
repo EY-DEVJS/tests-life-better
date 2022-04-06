@@ -35,11 +35,11 @@ const Checkout: React.FC<IProps> = ({}) => {
         </div>
         <div className="flex flex-column align-content-center">
           <Button
+            label="Zapłać"
             className="p-button-secondary mb-2 text-center"
             onClick={handleSubmit(onValid, onInvalid)}
-          >
-            Zapłać
-          </Button>
+          />
+
           <div className="text-sm mb-2 text-center">KONTYNUJ ZAKUPY</div>
         </div>
       </div>
