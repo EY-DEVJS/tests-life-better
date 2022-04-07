@@ -10,6 +10,7 @@ interface IProps<RadioValueType> {
   invalid: boolean;
   validationMessage: string | undefined;
   id: string;
+  label: string;
 }
 
 const RadioGroup = <RadioValueType,>({
@@ -19,9 +20,13 @@ const RadioGroup = <RadioValueType,>({
   validationMessage,
   invalid,
   id,
+  label,
 }: IProps<RadioValueType>) => {
   return (
     <>
+      <h5>
+        <label htmlFor={id}>{label}</label>
+      </h5>
       {data.map(({ value, additionalInfo, displayValue }) => (
         <div className="field-radiobutton" key={displayValue}>
           <RadioButton

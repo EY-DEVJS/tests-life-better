@@ -21,15 +21,17 @@ const Checkout: React.FC<IProps> = ({}) => {
     <div>
       <div className="card border-solid p-2 w-20rem">
         <h3 className="mt-3 mb-2">Do zapłaty</h3>
-        <div className="text-4xl text-right">106.97</div>
+        <div className="text-4xl text-right" data-testid="price-base">
+          106.97
+        </div>
         {shipping && (
-          <div className="text-right text-xs mb-4">
+          <div className="text-right text-xs mb-4" data-testid="price-shipping">
             + dostawa <span>{shipping.amount}</span>
           </div>
         )}
         <div className="flex justify-content-between mb-3">
           <span className="text-5xl">Suma </span>
-          <span className="text-5xl">
+          <span className="text-5xl" data-testid="price-total">
             {shipping ? shipping.amount + 106.97 : 106.97}
           </span>
         </div>

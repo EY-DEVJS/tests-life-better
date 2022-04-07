@@ -57,16 +57,16 @@ const ShoppingForm: React.FC<IProps> = ({}) => {
             />
           </div>
           <div className="card">
-            <h5>Dostawa na adres</h5>
             <RadioGroupWithForm
+              label="Dostawa na adres"
               data={shippingData}
               id="shipping"
               rules={validation.shipping}
             />
           </div>
           <div className="card">
-            <h5>Metoda płatności</h5>
             <RadioGroupWithForm
+              label="Metoda płatności"
               data={paymentData}
               id="payment"
               rules={validation.payment}

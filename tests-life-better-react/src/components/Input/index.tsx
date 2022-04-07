@@ -25,6 +25,7 @@ const Input: React.FC<IProps> = ({
   label,
   validationMessage,
   invalid,
+  onBlur,
 }) => {
   return (
     <div className="field">
@@ -38,6 +39,7 @@ const Input: React.FC<IProps> = ({
         id={id}
         aria-errormessage={id}
         aria-invalid={invalid}
+        onBlur={onBlur}
       />
       {validationMessage && (
         <small className="p-error" id={id}>

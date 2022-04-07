@@ -7,7 +7,7 @@ import { defaultValues } from "./ShoppingForm/ShoppingFormData";
 interface IProps {}
 
 const OrderPage: React.FC<IProps> = ({}) => {
-  const methods = useForm<IShoppingForm>({ defaultValues });
+  const methods = useForm<IShoppingForm>({ defaultValues, mode: "all" });
 
   return (
     <FormProvider {...methods}>
