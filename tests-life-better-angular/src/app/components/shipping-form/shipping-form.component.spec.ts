@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ShippingFormComponent } from './shipping-form.component';
+import {ShippingFormComponent} from './shipping-form.component';
 
 describe('ShippingFormComponent', () => {
   let component: ShippingFormComponent;
@@ -8,9 +8,9 @@ describe('ShippingFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShippingFormComponent ]
+      declarations: [ShippingFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

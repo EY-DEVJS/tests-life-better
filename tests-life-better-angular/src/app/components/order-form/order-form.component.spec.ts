@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrderFormComponent } from './order-form.component';
+import {OrderFormComponent} from './order-form.component';
 
 describe('OrderFormComponent', () => {
   let component: OrderFormComponent;
@@ -8,9 +8,9 @@ describe('OrderFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderFormComponent ]
+      declarations: [OrderFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

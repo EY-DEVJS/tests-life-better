@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-stepper',
