@@ -60,6 +60,34 @@ describe("Order", () => {
     });
   });
 
+  describe("#email input", () => {
+    it("should validate shape of email when bad format", async () => {
+      const mockedEmailValue = "some not valid email";
+      const { getByLabelText, queryByText } = render(<OrderPage />);
+      const firstNameInput = getByLabelText("E-mail");
+      userEvent.type(firstNameInput, mockedEmailValue);
+
+      await waitFor(() => {
+        expect(queryByText("Wymagany poprawny email")).toBeInTheDocument();
+        expect(firstNameInput).toHaveValue(mockedEmailValue);
+        expect(firstNameInput).not.toBeValid();
+      });
+    });
+
+    it("should validate shape of email when proper", async () => {
+      const mockedEmailValue = "perfect@email.com";
+      const { getByLabelText, queryByText } = render(<OrderPage />);
+      const firstNameInput = getByLabelText("E-mail");
+      userEvent.type(firstNameInput, mockedEmailValue);
+
+      await waitFor(() => {
+        expect(queryByText("Wymagany poprawny email")).toBeNull();
+        expect(firstNameInput).toHaveValue(mockedEmailValue);
+        expect(firstNameInput).toBeValid();
+      });
+    });
+  });
+
   describe("Submission", () => {
     it("should validate whole form when submit", async () => {
       const { findByText, findByLabelText, getByText } = render(<OrderPage />);

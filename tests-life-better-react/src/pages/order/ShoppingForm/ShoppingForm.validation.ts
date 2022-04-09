@@ -31,6 +31,10 @@ export const validation: FormValidation<IShoppingForm> = {
       value: true,
       message: "Pole Email nie może być puste",
     },
+    pattern: {
+      value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+      message: "Wymagany poprawny email",
+    },
   },
   payment: {
     required: {

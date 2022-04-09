@@ -9,13 +9,9 @@ const Checkout: React.FC<IProps> = ({}) => {
   const { watch, handleSubmit } = useFormContext<IShoppingForm>();
   const shipping = watch("shipping");
 
-  const onValid = (data: any) => {
-    console.log("FORM IS VALID: ", data);
-  };
+  const onValid = (data: any) => {};
 
-  const onInvalid = (data: any) => {
-    console.log("FORM IS INVALID: ", data);
-  };
+  const onInvalid = (data: any) => {};
 
   return (
     <div>
