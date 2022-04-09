@@ -62,15 +62,15 @@ describe("Order", () => {
 
   describe("#email input", () => {
     it("should validate shape of email when bad format", async () => {
-      const mockedEmailValue = "some not valid email";
+      const mockedEmailValue = "someemail.com";
       const { getByLabelText, queryByText } = render(<OrderPage />);
       const firstNameInput = getByLabelText("E-mail");
       userEvent.type(firstNameInput, mockedEmailValue);
 
       await waitFor(() => {
-        expect(queryByText("Wymagany poprawny email")).toBeInTheDocument();
         expect(firstNameInput).toHaveValue(mockedEmailValue);
         expect(firstNameInput).not.toBeValid();
+        expect(queryByText("Wymagany poprawny email")).toBeInTheDocument();
       });
     });
 
