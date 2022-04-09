@@ -10,7 +10,6 @@ interface IProps<RadioValueType> {
   invalid: boolean;
   validationMessage: string | undefined;
   id: string;
-  label: string;
 }
 
 const RadioGroup = <RadioValueType,>({
@@ -20,29 +19,32 @@ const RadioGroup = <RadioValueType,>({
   validationMessage,
   invalid,
   id,
-  label,
 }: IProps<RadioValueType>) => {
   return (
     <>
-      <h5>
-        <label htmlFor={id}>{label}</label>
-      </h5>
       {data.map(({ value, additionalInfo, displayValue }) => (
-        <div className="field-radiobutton" key={displayValue}>
+        <div
+          className="field-radiobutton"
+          key={displayValue}
+          data-testid={`${displayValue}-wrapper`}
+          aria-invalid={invalid}
+        >
           <RadioButton
             value={value}
-            inputId={id}
-            name={displayValue}
+            inputId={displayValue}
+            name={id}
             onChange={onClick}
-            checked={chosenValue === value}
+            checked={JSON.stringify(chosenValue) === JSON.stringify(value)}
             className={classNames("block", invalid && "p-invalid")}
           />
-          <div className="flex justify-content-between">
-            <label htmlFor={id} className="mx-5">
-              {displayValue}
-            </label>
-            {additionalInfo && <span> {`${additionalInfo} PLN`}</span>}
-          </div>
+          <label
+            aria-labelledby={displayValue}
+            htmlFor={displayValue}
+            className="mx-5"
+          >
+            {displayValue}
+          </label>
+          {additionalInfo && <span> {`${additionalInfo} PLN`}</span>}
         </div>
       ))}
       {validationMessage && (

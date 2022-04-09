@@ -14,7 +14,6 @@ interface IProps<RadioValueType, TFieldValues extends FieldValues> {
   id: Path<TFieldValues>;
   data: Array<IRadioData<RadioValueType>>;
   rules: ValidationRules<TFieldValues> | undefined;
-  label: string;
 }
 
 export const RadioGroupWithForm = <
@@ -24,7 +23,6 @@ export const RadioGroupWithForm = <
   id,
   data,
   rules,
-  label,
 }: IProps<RadioValueType, TFieldValues>) => {
   const { control } = useFormContext<TFieldValues>();
   const {
@@ -43,7 +41,6 @@ export const RadioGroupWithForm = <
 
   return (
     <RadioGroup
-      label={label}
       data={data}
       onClick={onClick}
       chosenValue={value}

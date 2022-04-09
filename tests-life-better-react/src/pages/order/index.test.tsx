@@ -94,12 +94,60 @@ describe("Oder", () => {
     });
 
     it("should have proper shipping price and proper total price", async () => {
-      const { findByText, findByLabelText, debug } = render(<OrderPage />);
-      const inpostRadio = await findByLabelText("Kurier (InPost)");
-      // const shippingRadio = await findByLabelText("Dostawa na adres");
-      fireEvent.click(inpostRadio);
+      const { findByLabelText, findByTestId } = render(<OrderPage />);
+      const inpost = await findByLabelText("Kurier (InPost)");
+
+      userEvent.click(inpost);
+
+      const priceShipping = await findByTestId("price-shipping");
+      const priceTotal = await findByTestId("price-total");
+
+      expect(priceShipping.textContent).toEqual("+ dostawa 10.95");
+      expect(priceTotal.textContent).toEqual("117.92");
+      expect(inpost).toBeChecked();
+    });
+
+    it("should properly recalculate price shipping", async () => {
+      const { findByLabelText, findByTestId } = render(<OrderPage />);
+      const inpost = await findByLabelText("Kurier (InPost)");
+      const pocztex = await findByLabelText("Kurier (Pocztex)");
+
+      userEvent.click(inpost);
+      const priceShipping = await findByTestId("price-shipping");
+      const priceTotal = await findByTestId("price-total");
+
+      expect(priceShipping.textContent).toEqual("+ dostawa 10.95");
+      expect(priceTotal.textContent).toEqual("117.92");
+      expect(inpost).toBeChecked();
+
+      userEvent.click(pocztex);
+
+      expect(inpost).not.toBeChecked();
+      expect(pocztex).toBeChecked();
+
+      expect(priceShipping.textContent).toEqual("+ dostawa 9.99");
+      expect(priceTotal.textContent).toEqual("116.96");
+    });
+  });
+
+  describe("#payment-method", () => {
+    it(" should revalidate after submission ", async () => {
+      const { findByLabelText, findByText, queryByText } = render(
+        <OrderPage />
+      );
+
+      const blik = await findByLabelText("Blik");
+      const submitButton = await findByText("Zapłać");
+      userEvent.click(submitButton);
+
+      const validationMessage = await findByText("Wybierz sposób płatności");
+      expect(validationMessage).toBeDefined();
+
+      userEvent.click(blik);
+
       await waitFor(() => {
-        debug();
+        expect(queryByText("Wybierz sposób płatności")).toBeNull();
+        expect(blik).toBeChecked();
       });
     });
   });
