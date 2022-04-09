@@ -7,7 +7,7 @@ import "../../index.css";
 import { InputText } from "primereact/inputtext";
 import classNames from "classnames";
 
-interface IProps {
+export interface IProps {
   label: string;
   onChange: (value: string) => void;
   id: string;
