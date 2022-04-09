@@ -1,1 +1,15 @@
-<p>checkout works!</p>
+<p-card>
+  <h2>Do zapłaty</h2>
+  <h2 class="checkout__sum">{{ orderCost }} zł</h2>
+  <div class="checkout__transport">+ dostawa {{ shippingCost }} zł</div>
+  <div class="checkout__total-cost">
+    <span>SUMA</span>
+    <span>{{ totalCost }} zł</span>
+  </div>
+  <div class="checkout__button-pay">
+    <p-button [disabled]="!formValid" label="Zapłać"></p-button>
+  </div>
+  <div class="checkout__button-continue">
+    <p-button label="Kontynuuj zakupy" styleClass="p-button-link"></p-button>
+  </div>
+</p-card>

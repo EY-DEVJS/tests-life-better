@@ -1,116 +1,157 @@
 <p-card>
-  <div class="fluid grid"
-       [formGroup]="shippingForm">
+  <div [formGroup]="shippingForm"
+       class="fluid grid">
     <div class="col-12 md:col-6">
       <h3>Dane odbiorcy przesyłki</h3>
-
       <div class="field mt-5">
-      <span class="p-float-label">
-        <input type="text"
-               class="w-full"
-               formControlName="firstName"
-               id="first-name"
-               pInputText>
-        <label for="first-name">Imię</label>
-      </span>
+        <span class="p-float-label">
+          <input class="w-full"
+                 formControlName="firstName"
+                 id="first-name"
+                 pInputText
+                 type="text">
+          <label for="first-name">Imię</label>
+        </span>
+        <span
+          *ngIf="shippingForm.controls['firstName'].invalid && (shippingForm.controls['firstName'].dirty || shippingForm.controls['firstName'].touched)">
+          <small *ngIf="shippingForm.controls['firstName'].errors?.required"
+                 class="p-error block" id="first-name-help">
+            Pole Imię nie może być puste
+          </small>
+        </span>
       </div>
-
       <div class="field mt-5">
       <span class="p-float-label">
-        <input type="text"
-               class="w-full"
+        <input class="w-full"
                formControlName="lastName"
                id="last-name"
-               pInputText>
+               pInputText
+               type="text">
         <label for="last-name">Nazwisko</label>
       </span>
+        <span
+          *ngIf="shippingForm.controls['lastName'].invalid && (shippingForm.controls['lastName'].dirty || shippingForm.controls['lastName'].touched)">
+          <small *ngIf="shippingForm.controls['lastName'].errors?.required"
+                 class="p-error block" id="last-name-help">
+            Pole Nazwisko nie może być puste
+          </small>
+        </span>
       </div>
-
       <div class="field  mt-5">
       <span class="p-float-label">
-        <input type="email"
-               class="w-full"
+        <input class="w-full"
                formControlName="email"
                id="email"
-               pInputText>
+               pInputText
+               type="email">
         <label for="email">E-mail</label>
       </span>
+        <span
+          *ngIf="shippingForm.controls['email'].invalid && (shippingForm.controls['email'].dirty || shippingForm.controls['email'].touched)">
+          <small *ngIf="shippingForm.controls['email'].errors?.required"
+                 class="p-error block" id="email-help">
+            Pole Email nie może być puste
+          </small>
+        </span>
       </div>
-
       <div class="field mt-5">
       <span class="p-float-label">
-          <input type="text"
-                 class="w-full"
+          <input class="w-full"
                  formControlName="postalCode"
                  id="postal-code"
-                 pInputText>
+                 pInputText
+                 type="text">
           <label for="postal-code">Kod pocztowy</label>
         </span>
+        <span
+          *ngIf="shippingForm.controls['postalCode'].invalid && (shippingForm.controls['postalCode'].dirty || shippingForm.controls['postalCode'].touched)">
+          <small *ngIf="shippingForm.controls['postalCode'].errors?.required"
+                 class="p-error block" id="postal-code-help">
+            Pole Kod pocztowy nie może być puste
+          </small>
+        </span>
       </div>
-
       <div class="field mt-5">
       <span class="p-float-label">
-          <input type="text"
-                 class="w-full"
+          <input class="w-full"
                  formControlName="city"
                  id="city"
-                 pInputText>
+                 pInputText
+                 type="text">
           <label for="city">Miasto</label>
         </span>
-      </div>
-
-      <div class="field mt-5">
-      <span class="p-float-label">
-          <input type="text"
-                 class="w-full"
-                 formControlName="streetAddress"
-                 id="street-address"
-                 pInputText>
-          <label for="street-address">Ulica i numer domu / mieszkania</label>
+        <span
+          *ngIf="shippingForm.controls['city'].invalid && (shippingForm.controls['city'].dirty || shippingForm.controls['city'].touched)">
+          <small *ngIf="shippingForm.controls['city'].errors?.required"
+                 class="p-error block" id="city-help">
+            Pole Miasto nie może być puste
+          </small>
         </span>
       </div>
-
+      <div class="field mt-5">
+      <span class="p-float-label">
+          <input class="w-full"
+                 formControlName="streetAddress"
+                 id="street-address"
+                 pInputText
+                 type="text">
+          <label for="street-address">Ulica i numer domu / mieszkania</label>
+        </span>
+        <span
+          *ngIf="shippingForm.controls['streetAddress'].invalid && (shippingForm.controls['streetAddress'].dirty || shippingForm.controls['streetAddress'].touched)">
+          <small *ngIf="shippingForm.controls['streetAddress'].errors?.required"
+                 class="p-error block" id="street-address-help">
+            To pole nie może być puste
+          </small>
+        </span>
+      </div>
     </div>
     <div class="col-12 md:col-6">
       <h3>Data doręczenia przesyłki</h3>
-
       <div class="field mt-5">
       <span class="p-float-label">
-        <p-calendar formControlName="shippingDate"
-                    [showIcon]="true"
-                    inputId="shipping-date"></p-calendar>
+        <p-calendar [showIcon]="true"
+                    formControlName="shippingDate"
+                    inputId="shipping-date">
+        </p-calendar>
           <label for="city">Data</label>
         </span>
       </div>
-
-      <h3>Dostawa na adres</h3>
-
-      <div class="field-radiobutton"
-           *ngFor="let provider of shippingProviders">
-        <p-radioButton formControlName="shippingProvider"
-                       [value]="provider.value"
-                       [label]="provider.key"></p-radioButton>
+      <h3>Metoda dostawy</h3>
+      <div *ngFor="let provider of shippingProviders"
+           class="field-radiobutton">
+        <p-radioButton [inputId]="provider.value"
+                       [value]="provider.price"
+                       formControlName="shippingProvider">
+        </p-radioButton>
+        <label [for]="provider.value"
+               class="field-radiobutton__item">
+          <span>
+            {{ provider.key }}
+          </span>
+          <span>
+            {{ provider.price }} zł
+          </span>
+        </label>
       </div>
-
       <h3>Metoda płatności</h3>
-
-      <div class="field-radiobutton"
-           *ngFor="let method of paymentMethods">
-        <p-radioButton formControlName="paymentMethod"
+      <div *ngFor="let method of paymentMethods"
+           class="field-radiobutton">
+        <p-radioButton [label]="method.key"
                        [value]="method.value"
-                       [label]="method.key"></p-radioButton>
+                       formControlName="paymentMethod">
+        </p-radioButton>
       </div>
-
     </div>
     <div class="col-12">
       <div class="flex flex-row align-items-center">
-
-
         <p-inputSwitch formControlName="consent"
-                       inputId="consent"></p-inputSwitch>
-
-        <label for="consent"
-               class="pl-4">{{consentMessage}}</label>
+                       id="consent"
+                       inputId="consent">
+        </p-inputSwitch>
+        <label class="pl-4"
+               for="consent">{{consentMessage}}
+        </label>
       </div>
     </div>
   </div>
