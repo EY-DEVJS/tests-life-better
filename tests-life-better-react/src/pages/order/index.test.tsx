@@ -5,15 +5,16 @@ import {
   fireEvent,
   render,
   waitFor,
+  waitForElementToBeRemoved,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-describe("Oder", () => {
+describe("Order", () => {
   describe("#first-name input", () => {
     it("should proper handle typing", async () => {
       const mockedFirstName = "Artur";
-      const { findByLabelText } = render(<OrderPage />);
-      const firstNameInput = await findByLabelText("Imię");
+      const { getByLabelText } = render(<OrderPage />);
+      const firstNameInput = getByLabelText("Imię");
       userEvent.type(firstNameInput, mockedFirstName);
 
       await waitFor(() => {
@@ -23,10 +24,11 @@ describe("Oder", () => {
     });
 
     it("should proper validate blur", async () => {
-      const { findByLabelText, findByText } = render(<OrderPage />);
-      const firstNameInput = await findByLabelText("Imię");
+      const { findByText, getByLabelText } = render(<OrderPage />);
+      const firstNameInput = getByLabelText("Imię");
 
       fireEvent.blur(firstNameInput);
+
       const validationMessage = await findByText(
         "Pole Imię nie może być puste"
       );
@@ -36,10 +38,8 @@ describe("Oder", () => {
     });
 
     it("should proper revalidate after blur and typing", async () => {
-      const { findByLabelText, findByText, queryByText } = render(
-        <OrderPage />
-      );
-      const firstNameInput = await findByLabelText("Imię");
+      const { getByLabelText, findByText, queryByText } = render(<OrderPage />);
+      const firstNameInput = getByLabelText("Imię");
 
       fireEvent.blur(firstNameInput);
       const validationMessage = await findByText(
@@ -51,18 +51,19 @@ describe("Oder", () => {
 
       userEvent.type(firstNameInput, "Poprawne Imie");
 
-      await waitFor(() => {
-        expect(queryByText("Pole Imię nie może być puste")).toBeNull();
-        expect(firstNameInput).toHaveValue("Poprawne Imie");
-        expect(firstNameInput).toBeValid();
-      });
+      await waitForElementToBeRemoved(() =>
+        queryByText("Pole Imię nie może być puste")
+      );
+
+      expect(firstNameInput).toHaveValue("Poprawne Imie");
+      expect(firstNameInput).toBeValid();
     });
   });
 
   describe("Submission", () => {
     it("should validate whole form when submit", async () => {
-      const { findByText, findByLabelText } = render(<OrderPage />);
-      const submitButton = await findByText("Zapłać");
+      const { findByText, findByLabelText, getByText } = render(<OrderPage />);
+      const submitButton = getByText("Zapłać");
       userEvent.click(submitButton);
 
       expect(await findByText("Pole Imię nie może być puste")).toBeDefined();
@@ -90,54 +91,60 @@ describe("Oder", () => {
     it("should have base price total", () => {
       const { getByTestId } = render(<OrderPage />);
       const priceTotal = getByTestId("price-total");
-      expect(priceTotal?.textContent).toBe("106.97");
+      expect(priceTotal.textContent).toBe("106.97");
     });
 
     it("should have proper shipping price and proper total price", async () => {
-      const { findByLabelText, findByTestId } = render(<OrderPage />);
-      const inpost = await findByLabelText("Kurier (InPost)");
+      const { getByLabelText, getByTestId } = render(<OrderPage />);
+      const inpost = getByLabelText("Kurier (InPost)");
 
       userEvent.click(inpost);
 
-      const priceShipping = await findByTestId("price-shipping");
-      const priceTotal = await findByTestId("price-total");
+      const priceShipping = getByTestId("price-shipping");
+      const priceTotal = getByTestId("price-total");
 
-      expect(priceShipping.textContent).toEqual("+ dostawa 10.95");
-      expect(priceTotal.textContent).toEqual("117.92");
-      expect(inpost).toBeChecked();
+      await waitFor(() => {
+        expect(priceShipping.textContent).toEqual("+ dostawa 10.95");
+        expect(priceTotal.textContent).toEqual("117.92");
+        expect(inpost).toBeChecked();
+      });
     });
 
     it("should properly recalculate price shipping", async () => {
-      const { findByLabelText, findByTestId } = render(<OrderPage />);
-      const inpost = await findByLabelText("Kurier (InPost)");
-      const pocztex = await findByLabelText("Kurier (Pocztex)");
+      const { getByTestId, getByLabelText } = render(<OrderPage />);
+      const inpost = getByLabelText("Kurier (InPost)");
+      const pocztex = getByLabelText("Kurier (Pocztex)");
 
       userEvent.click(inpost);
-      const priceShipping = await findByTestId("price-shipping");
-      const priceTotal = await findByTestId("price-total");
 
-      expect(priceShipping.textContent).toEqual("+ dostawa 10.95");
-      expect(priceTotal.textContent).toEqual("117.92");
-      expect(inpost).toBeChecked();
+      const priceShipping = getByTestId("price-shipping");
+      const priceTotal = getByTestId("price-total");
+
+      await waitFor(() => {
+        expect(priceShipping.textContent).toEqual("+ dostawa 10.95");
+        expect(priceTotal.textContent).toEqual("117.92");
+        expect(inpost).toBeChecked();
+      });
 
       userEvent.click(pocztex);
 
-      expect(inpost).not.toBeChecked();
-      expect(pocztex).toBeChecked();
-
-      expect(priceShipping.textContent).toEqual("+ dostawa 9.99");
-      expect(priceTotal.textContent).toEqual("116.96");
+      await waitFor(() => {
+        expect(inpost).not.toBeChecked();
+        expect(pocztex).toBeChecked();
+        expect(priceShipping.textContent).toEqual("+ dostawa 9.99");
+        expect(priceTotal.textContent).toEqual("116.96");
+      });
     });
   });
 
   describe("#payment-method", () => {
     it(" should revalidate after submission ", async () => {
-      const { findByLabelText, findByText, queryByText } = render(
+      const { findByText, queryByText, getByLabelText, getByText } = render(
         <OrderPage />
       );
 
-      const blik = await findByLabelText("Blik");
-      const submitButton = await findByText("Zapłać");
+      const blik = getByLabelText("Blik");
+      const submitButton = getByText("Zapłać");
       userEvent.click(submitButton);
 
       const validationMessage = await findByText("Wybierz sposób płatności");
@@ -145,10 +152,11 @@ describe("Oder", () => {
 
       userEvent.click(blik);
 
-      await waitFor(() => {
-        expect(queryByText("Wybierz sposób płatności")).toBeNull();
-        expect(blik).toBeChecked();
-      });
+      await waitForElementToBeRemoved(() =>
+        queryByText("Wybierz sposób płatności")
+      );
+
+      expect(blik).toBeChecked();
     });
   });
 });
