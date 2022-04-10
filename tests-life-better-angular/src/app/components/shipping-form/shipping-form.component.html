@@ -15,8 +15,12 @@
         <span
           *ngIf="shippingForm.controls['firstName'].invalid && (shippingForm.controls['firstName'].dirty || shippingForm.controls['firstName'].touched)">
           <small *ngIf="shippingForm.controls['firstName'].errors?.required"
-                 class="p-error block" id="first-name-help">
+                 class="p-error block" id="first-name-required">
             Pole Imię nie może być puste
+          </small>
+          <small *ngIf="shippingForm.controls['firstName'].errors?.maxlength"
+                 class="p-error block" id="first-name-length">
+            Zawartość musi być krótsza niż {{ maxLength }} znaków.
           </small>
         </span>
       </div>
@@ -32,8 +36,12 @@
         <span
           *ngIf="shippingForm.controls['lastName'].invalid && (shippingForm.controls['lastName'].dirty || shippingForm.controls['lastName'].touched)">
           <small *ngIf="shippingForm.controls['lastName'].errors?.required"
-                 class="p-error block" id="last-name-help">
+                 class="p-error block" id="last-name-required">
             Pole Nazwisko nie może być puste
+          </small>
+          <small *ngIf="shippingForm.controls['lastName'].errors?.maxlength"
+                 class="p-error block" id="last-name-maxlength">
+            Zawartość musi być krótsza niż {{ maxLength }} znaków.
           </small>
         </span>
       </div>
@@ -49,8 +57,16 @@
         <span
           *ngIf="shippingForm.controls['email'].invalid && (shippingForm.controls['email'].dirty || shippingForm.controls['email'].touched)">
           <small *ngIf="shippingForm.controls['email'].errors?.required"
-                 class="p-error block" id="email-help">
+                 class="p-error block" id="email-required">
             Pole Email nie może być puste
+          </small>
+          <small *ngIf="shippingForm.controls['email'].errors?.maxlength"
+                 class="p-error block" id="email-maxlength">
+            Zawartość musi być krótsza niż {{ maxLength }} znaków.
+          </small>
+          <small *ngIf="shippingForm.controls['email'].errors?.email"
+                 class="p-error block" id="email-pattern">
+            Wymagany poprawny e-mail
           </small>
         </span>
       </div>
@@ -66,8 +82,16 @@
         <span
           *ngIf="shippingForm.controls['postalCode'].invalid && (shippingForm.controls['postalCode'].dirty || shippingForm.controls['postalCode'].touched)">
           <small *ngIf="shippingForm.controls['postalCode'].errors?.required"
-                 class="p-error block" id="postal-code-help">
+                 class="p-error block" id="postal-code-required">
             Pole Kod pocztowy nie może być puste
+          </small>
+          <small *ngIf="shippingForm.controls['postalCode'].errors?.maxlength"
+                 class="p-error block" id="postal-code-maxlength">
+            Zawartość musi być krótsza niż {{ maxLength }} znaków.
+          </small>
+          <small *ngIf="shippingForm.controls['postalCode'].errors?.pattern"
+                 class="p-error block" id="postal-code-pattern">
+            Wymagany format: xx-xxx
           </small>
         </span>
       </div>
@@ -83,8 +107,12 @@
         <span
           *ngIf="shippingForm.controls['city'].invalid && (shippingForm.controls['city'].dirty || shippingForm.controls['city'].touched)">
           <small *ngIf="shippingForm.controls['city'].errors?.required"
-                 class="p-error block" id="city-help">
+                 class="p-error block" id="city-required">
             Pole Miasto nie może być puste
+          </small>
+          <small *ngIf="shippingForm.controls['city'].errors?.maxlength"
+                 class="p-error block" id="city-maxlength">
+            Zawartość musi być krótsza niż {{ maxLength }} znaków.
           </small>
         </span>
       </div>
@@ -100,8 +128,12 @@
         <span
           *ngIf="shippingForm.controls['streetAddress'].invalid && (shippingForm.controls['streetAddress'].dirty || shippingForm.controls['streetAddress'].touched)">
           <small *ngIf="shippingForm.controls['streetAddress'].errors?.required"
-                 class="p-error block" id="street-address-help">
+                 class="p-error block" id="street-address-required">
             To pole nie może być puste
+          </small>
+          <small *ngIf="shippingForm.controls['streetAddress'].errors?.maxlength"
+                 class="p-error block" id="street-address-maxlength">
+            Zawartość musi być krótsza niż {{ maxLength }} znaków.
           </small>
         </span>
       </div>

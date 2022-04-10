@@ -24,11 +24,9 @@ export class CheckoutComponent implements OnInit {
         this.totalCost = this.orderCost + shippingCost;
       }
     })
-    this.shippingService.currentFormValidationMessage.subscribe({
-      next: (valid) => {
-        this.formValid = valid;
-      }
-    })
   }
 
+  public buy() {
+    this.shippingService.checkFormValidation();
+  }
 }

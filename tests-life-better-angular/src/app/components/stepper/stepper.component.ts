@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 
 @Component({
@@ -9,7 +9,9 @@ import {MenuItem} from 'primeng/api';
 
 })
 export class StepperComponent implements OnInit {
-  items: MenuItem[] = [
+  @Input() activeIndex = 1;
+
+  public items: MenuItem[] = [
     {label: 'Twój koszyk', icon: 'pi pi-repeat'},
     {label: 'Dostawa i sposób płatności'},
     {label: 'Płatność'},
