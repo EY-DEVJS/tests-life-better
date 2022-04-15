@@ -7,7 +7,6 @@ import {shippingService} from "../../shared/services/shipping.service";
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  public formValid: boolean = false;
   public orderCost: number = 106.97;
   public shippingCost: number = 0;
   public totalCost: number = 0;
