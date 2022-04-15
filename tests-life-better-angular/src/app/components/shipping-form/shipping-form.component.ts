@@ -39,8 +39,7 @@ export class ShippingFormComponent implements OnInit {
     })
 
     this.shippingService.currentFormValidationMessage.subscribe({
-      next: (valid) => {
-        console.log("-> valid", valid);
+      next: () => {
         this.shippingForm.markAllAsTouched();
       }
     })

@@ -1,10 +1,14 @@
 <p-card>
   <h2>Do zapłaty</h2>
-  <h2 class="checkout__sum">{{ orderCost }} zł</h2>
-  <div class="checkout__transport">+ dostawa {{ shippingCost }} zł</div>
+  <h2 class="checkout__sum">{{ orderCost }}zł</h2>
+  <div class="checkout__transport">
+    <span data-testid="price-shipping">+ dostawa {{ shippingCost }}</span>zł
+  </div>
   <div class="checkout__total-cost">
     <span>SUMA</span>
-    <span>{{ totalCost }} zł</span>
+    <span>
+      <span data-testid="price-total">{{ totalCost }}</span>zł
+    </span>
   </div>
   <div class="checkout__button-pay">
     <p-button (onClick)="buy()" label="Zapłać"></p-button>

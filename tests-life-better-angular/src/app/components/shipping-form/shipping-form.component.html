@@ -5,11 +5,13 @@
       <h3>Dane odbiorcy przesyłki</h3>
       <div class="field mt-5">
         <span class="p-float-label">
-          <input class="w-full"
-                 formControlName="firstName"
-                 id="first-name"
-                 pInputText
-                 type="text">
+          <input
+            [attr.aria-invalid]="shippingForm.controls['firstName'].invalid && (shippingForm.controls['firstName'].dirty || shippingForm.controls['firstName'].touched)"
+            class="w-full"
+            formControlName="firstName"
+            id="first-name"
+            pInputText
+            type="text">
           <label for="first-name">Imię</label>
         </span>
         <span
@@ -26,11 +28,13 @@
       </div>
       <div class="field mt-5">
       <span class="p-float-label">
-        <input class="w-full"
-               formControlName="lastName"
-               id="last-name"
-               pInputText
-               type="text">
+        <input
+          [attr.aria-invalid]="shippingForm.controls['lastName'].invalid && (shippingForm.controls['lastName'].dirty || shippingForm.controls['lastName'].touched)"
+          class="w-full"
+          formControlName="lastName"
+          id="last-name"
+          pInputText
+          type="text">
         <label for="last-name">Nazwisko</label>
       </span>
         <span
@@ -47,11 +51,13 @@
       </div>
       <div class="field  mt-5">
       <span class="p-float-label">
-        <input class="w-full"
-               formControlName="email"
-               id="email"
-               pInputText
-               type="email">
+        <input
+          [attr.aria-invalid]="shippingForm.controls['email'].invalid && (shippingForm.controls['email'].dirty || shippingForm.controls['email'].touched)"
+          class="w-full"
+          formControlName="email"
+          id="email"
+          pInputText
+          type="email">
         <label for="email">E-mail</label>
       </span>
         <span
@@ -72,11 +78,13 @@
       </div>
       <div class="field mt-5">
       <span class="p-float-label">
-          <input class="w-full"
-                 formControlName="postalCode"
-                 id="postal-code"
-                 pInputText
-                 type="text">
+          <input
+            [attr.aria-invalid]="shippingForm.controls['postalCode'].invalid && (shippingForm.controls['postalCode'].dirty || shippingForm.controls['postalCode'].touched)"
+            class="w-full"
+            formControlName="postalCode"
+            id="postal-code"
+            pInputText
+            type="text">
           <label for="postal-code">Kod pocztowy</label>
         </span>
         <span
@@ -97,11 +105,13 @@
       </div>
       <div class="field mt-5">
       <span class="p-float-label">
-          <input class="w-full"
-                 formControlName="city"
-                 id="city"
-                 pInputText
-                 type="text">
+          <input
+            [attr.aria-invalid]="shippingForm.controls['city'].invalid && (shippingForm.controls['city'].dirty || shippingForm.controls['city'].touched)"
+            class="w-full"
+            formControlName="city"
+            id="city"
+            pInputText
+            type="text">
           <label for="city">Miasto</label>
         </span>
         <span
@@ -118,12 +128,14 @@
       </div>
       <div class="field mt-5">
       <span class="p-float-label">
-          <input class="w-full"
-                 formControlName="streetAddress"
-                 id="street-address"
-                 pInputText
-                 type="text">
-          <label for="street-address">Ulica i numer domu / mieszkania</label>
+          <input
+            [attr.aria-invalid]="shippingForm.controls['streetAddress'].invalid && (shippingForm.controls['streetAddress'].dirty || shippingForm.controls['streetAddress'].touched)"
+            class="w-full"
+            formControlName="streetAddress"
+            id="street-address"
+            pInputText
+            type="text">
+          <label for="street-address">Ulica i numer domu/mieszkania</label>
         </span>
         <span
           *ngIf="shippingForm.controls['streetAddress'].invalid && (shippingForm.controls['streetAddress'].dirty || shippingForm.controls['streetAddress'].touched)">
@@ -158,14 +170,19 @@
         </p-radioButton>
         <label [for]="provider.value"
                class="field-radiobutton__item">
-          <span>
-            {{ provider.key }}
-          </span>
-          <span>
-            {{ provider.price }} zł
-          </span>
+          {{ provider.key }}
         </label>
+        <span>
+            {{ provider.price }}zł
+        </span>
       </div>
+      <span
+        *ngIf="shippingForm.controls['shippingProvider'].invalid && (shippingForm.controls['shippingProvider'].dirty || shippingForm.controls['shippingProvider'].touched)">
+          <small *ngIf="shippingForm.controls['shippingProvider'].errors?.required"
+                 class="p-error block" id="shipping-provider-required">
+            Wybierz sposób wysyłki
+          </small>
+      </span>
       <h3>Metoda płatności</h3>
       <div *ngFor="let method of paymentMethods"
            class="field-radiobutton">
@@ -174,6 +191,13 @@
                        formControlName="paymentMethod">
         </p-radioButton>
       </div>
+      <span
+        *ngIf="shippingForm.controls['paymentMethod'].invalid && (shippingForm.controls['paymentMethod'].dirty || shippingForm.controls['paymentMethod'].touched)">
+          <small *ngIf="shippingForm.controls['paymentMethod'].errors?.required"
+                 class="p-error block" id="payment-method-required">
+            Wybierz sposób płatności
+          </small>
+      </span>
     </div>
     <div class="col-12">
       <div class="flex flex-row align-items-center">
