@@ -1,11 +1,10 @@
 import OrderPage from ".";
 import {
-  findByLabelText,
-  findByText,
   fireEvent,
   render,
   waitFor,
   waitForElementToBeRemoved,
+  screen,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -16,8 +15,8 @@ describe("Order", () => {
     const firstNameRequiredValidationMessage = "Pole Imię nie może być puste";
 
     it("should proper handle typing", async () => {
-      const { getByLabelText } = render(<OrderPage />);
-      const firstNameInput = getByLabelText(firstNameLabel);
+      render(<OrderPage />);
+      const firstNameInput = screen.getByLabelText(firstNameLabel);
       userEvent.type(firstNameInput, mockedFirstName);
 
       await waitFor(() => {
@@ -27,12 +26,12 @@ describe("Order", () => {
     });
 
     it("should proper validate blur", async () => {
-      const { findByText, getByLabelText } = render(<OrderPage />);
-      const firstNameInput = getByLabelText(firstNameLabel);
+      render(<OrderPage />);
+      const firstNameInput = screen.getByLabelText(firstNameLabel);
 
       fireEvent.blur(firstNameInput);
 
-      const validationMessage = await findByText(
+      const validationMessage = await screen.findByText(
         firstNameRequiredValidationMessage
       );
 
@@ -41,11 +40,11 @@ describe("Order", () => {
     });
 
     it("should proper revalidate after blur and typing", async () => {
-      const { getByLabelText, findByText, queryByText } = render(<OrderPage />);
-      const firstNameInput = getByLabelText(firstNameLabel);
+      render(<OrderPage />);
+      const firstNameInput = screen.getByLabelText(firstNameLabel);
 
       fireEvent.blur(firstNameInput);
-      const validationMessage = await findByText(
+      const validationMessage = await screen.findByText(
         firstNameRequiredValidationMessage
       );
 
@@ -55,7 +54,7 @@ describe("Order", () => {
       userEvent.type(firstNameInput, mockedFirstName);
 
       await waitForElementToBeRemoved(() =>
-        queryByText(firstNameRequiredValidationMessage)
+        screen.queryByText(firstNameRequiredValidationMessage)
       );
 
       expect(firstNameInput).toHaveValue(mockedFirstName);
@@ -70,14 +69,16 @@ describe("Order", () => {
     const emailLabel = "E-mail";
 
     it("should validate shape of email when bad format", async () => {
-      const { getByLabelText, queryByText } = render(<OrderPage />);
-      const firstNameInput = getByLabelText("E-mail");
+      render(<OrderPage />);
+      const firstNameInput = screen.getByLabelText("E-mail");
       userEvent.type(firstNameInput, mockedWrongEmailValue);
 
       await waitFor(() => {
         expect(firstNameInput).toHaveValue(mockedWrongEmailValue);
         expect(firstNameInput).not.toBeValid();
-        expect(queryByText(emailShapeValidationMessage)).toBeInTheDocument();
+        expect(
+          screen.queryByText(emailShapeValidationMessage)
+        ).toBeInTheDocument();
       });
     });
 
@@ -108,26 +109,30 @@ describe("Order", () => {
     const addressRequiredValidationMessage = "To pole nie może być puste";
 
     it("should validate whole form when submit", async () => {
-      const { findByText, findByLabelText, getByText } = render(<OrderPage />);
-      const submitButton = getByText(submitButtonText);
+      render(<OrderPage />);
+      const submitButton = screen.getByText(submitButtonText);
       userEvent.click(submitButton);
 
       expect(
-        await findByText(firstNameRequiredValidationMessage)
+        await screen.findByText(firstNameRequiredValidationMessage)
       ).toBeDefined();
-      expect(await findByLabelText(firstNameLabel)).toBeInvalid();
-
-      expect(await findByText(lastNameRequiredValidationMessage)).toBeDefined();
-      expect(await findByLabelText(lastNameLabel)).toBeInvalid();
+      expect(await screen.findByLabelText(firstNameLabel)).toBeInvalid();
 
       expect(
-        await findByText(postalCodeRequiredValidationMessage)
+        await screen.findByText(lastNameRequiredValidationMessage)
+      ).toBeDefined();
+      expect(await screen.findByLabelText(lastNameLabel)).toBeInvalid();
+
+      expect(
+        await screen.findByText(postalCodeRequiredValidationMessage)
       ).toBeDefined();
 
-      expect(await findByLabelText(postalCodeLabel)).toBeInvalid();
+      expect(await screen.findByLabelText(postalCodeLabel)).toBeInvalid();
 
-      expect(await findByText(addressRequiredValidationMessage)).toBeDefined();
-      expect(await findByLabelText(addressLabel)).toBeInvalid();
+      expect(
+        await screen.findByText(addressRequiredValidationMessage)
+      ).toBeDefined();
+      expect(await screen.findByLabelText(addressLabel)).toBeInvalid();
     });
   });
 
@@ -167,14 +172,14 @@ describe("Order", () => {
       const inpostPriceTotalResult = "117.92";
       const pocztexShippingResult = "+ dostawa 9.99";
       const pocztexPriceTotalResult = "116.96";
-      const { getByTestId, getByLabelText } = render(<OrderPage />);
-      const inpost = getByLabelText(inpostLabel);
-      const pocztex = getByLabelText(pocztexLabel);
+      render(<OrderPage />);
+      const inpost = screen.getByLabelText(inpostLabel);
+      const pocztex = screen.getByLabelText(pocztexLabel);
 
       userEvent.click(inpost);
 
-      const priceShipping = getByTestId(priceShippingId);
-      const priceTotal = getByTestId(priceTotalId);
+      const priceShipping = screen.getByTestId(priceShippingId);
+      const priceTotal = screen.getByTestId(priceTotalId);
 
       await waitFor(() => {
         expect(priceShipping.textContent).toEqual(inpostShippingResult);
@@ -198,15 +203,13 @@ describe("Order", () => {
     const submitButtonText = "Zapłać";
     const paymentMethodRequiredValidationMessage = "Wybierz sposób płatności";
     it("should revalidate after submission ", async () => {
-      const { findByText, queryByText, getByLabelText, getByText } = render(
-        <OrderPage />
-      );
+      render(<OrderPage />);
 
-      const blik = getByLabelText(blikLabel);
-      const submitButton = getByText(submitButtonText);
+      const blik = screen.getByLabelText(blikLabel);
+      const submitButton = screen.getByText(submitButtonText);
       userEvent.click(submitButton);
 
-      const validationMessage = await findByText(
+      const validationMessage = await screen.findByText(
         paymentMethodRequiredValidationMessage
       );
       expect(validationMessage).toBeDefined();
@@ -214,7 +217,7 @@ describe("Order", () => {
       userEvent.click(blik);
 
       await waitForElementToBeRemoved(() =>
-        queryByText(paymentMethodRequiredValidationMessage)
+        screen.queryByText(paymentMethodRequiredValidationMessage)
       );
 
       expect(blik).toBeChecked();
