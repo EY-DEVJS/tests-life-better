@@ -3,7 +3,7 @@ import "primeflex/primeflex.css";
 
 const Header = () => {
   return (
-    <div className="flex align-items-center mb-3 lg:justify-content-between">
+    <div className="flex align-items-center mb-3 sm:justify-content-between">
       <div className="flex align-items-center ">
         <i className="pi pi-image mr-4" style={{ fontSize: "4rem" }} />
         <h1>Sklep</h1>
