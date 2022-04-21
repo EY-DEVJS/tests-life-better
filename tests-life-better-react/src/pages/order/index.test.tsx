@@ -14,7 +14,7 @@ describe("Order", () => {
     const firstNameLabel = "Imię";
     const firstNameRequiredValidationMessage = "Pole Imię nie może być puste";
 
-    it("should proper handle typing", async () => {
+    it("should properly handle typing", async () => {
       render(<OrderPage />);
       const firstNameInput = screen.getByLabelText(firstNameLabel);
       userEvent.type(firstNameInput, mockedFirstName);
@@ -25,7 +25,7 @@ describe("Order", () => {
       });
     });
 
-    it("should proper validate blur", async () => {
+    it("should properly validate blur", async () => {
       render(<OrderPage />);
       const firstNameInput = screen.getByLabelText(firstNameLabel);
 
@@ -39,7 +39,7 @@ describe("Order", () => {
       expect(firstNameInput).toBeInvalid();
     });
 
-    it("should proper revalidate after blur and typing", async () => {
+    it("should properly revalidate after blur and typing", async () => {
       render(<OrderPage />);
       const firstNameInput = screen.getByLabelText(firstNameLabel);
 
@@ -82,7 +82,7 @@ describe("Order", () => {
       });
     });
 
-    it("should validate shape of email when proper", async () => {
+    it("should validate shape of email when is proper", async () => {
       const { getByLabelText, queryByText } = render(<OrderPage />);
       const firstNameInput = getByLabelText(emailLabel);
       userEvent.type(firstNameInput, mockedEmailValue);
